@@ -11,16 +11,46 @@ public class PageExchange {
         this.queue = queue;
     }
 
-    public int fifo() {
-        
-        return 0;
+    public int fifo(int windowSize) {
+        int countFaults = 0;
+        boolean equal = false;
+        LinkedList<Page> windows = new LinkedList<>(), queueCopy = (LinkedList<Page>) queue.clone();
+
+        Page page = queueCopy.pollFirst();
+        while (page.getnProcess() != 0 || page.getnPage() != 0) {
+
+            if (windows.size() < windowSize) windows.addLast(page);
+            else {
+
+                equal = repetead(windows, page);
+
+                if (!equal) {
+                    windows.removeFirst();
+                    windows.addLast(page);
+                }
+            }
+
+            if (!equal) countFaults++;
+            page = queueCopy.pollFirst();
+        }
+
+        return countFaults;
+    }
+
+    private boolean repetead(LinkedList<Page> windows, Page page) {
+        for (int i = 0; i < windows.size(); i++)
+            if (windows.get(i).getnPage() == page.getnPage()) return true;
+
+        return false;
     }
 
     public int lru() {
+        int countFaults = 0;
         return 0;
     }
 
     public int secondChance() {
+        int countFaults = 0;
         return 0;
     }
 
