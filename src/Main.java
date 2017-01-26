@@ -7,20 +7,20 @@ import java.util.LinkedList;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        LinkedList<Page> input = readFile("");
-        for (int i = 0; i < input.size(); i++)
-            System.out.println(input.get(i).toString());
+        LinkedList<Page> input = readFile(args[1]);
+//        for (int i = 0; i < input.size(); i++)
+//            System.out.println(input.get(i).toString());
 
         PageExchange pageExchange = new PageExchange(input);
         System.out.println(pageExchange.fifo(3));
     }
 
     private static LinkedList<Page> readFile(String path) throws IOException {
-        //BufferedReader txt = new BufferedReader(new FileReader(path));
+        BufferedReader txt = new BufferedReader(new FileReader(path));
 
-        String str = "1,0;2,2;3,1;4,3;5,5;6,4;7,6;8,3;9,7;10,4;11,7;12,3;13,3;14,5;15,5;16,3;17,1;18,1;19,1;20,7;21,1;22,3;23,4;24,1;0,0";
-      //  while(txt.ready()) str += txt.readLine();
-       // txt.close();
+        String str = "";
+        while(txt.ready()) str += txt.readLine();
+        txt.close();
 
         String[] l = str.split(";");
         LinkedList<Page> lst = new LinkedList<>();
