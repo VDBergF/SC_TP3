@@ -1,27 +1,34 @@
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class Main {
 
     public static void main(String[] args) throws IOException {
+        LinkedList<Page> input = readFile(args[1]);
+//        for (int i = 0; i < input.size(); i++)
+//            System.out.println(input.get(i).toString());
 
-        System.out.println("Hello World!");
-        ArrayList<Integer> inputList = readFile(args[2]);
+        PageExchange pageExchange = new PageExchange(input);
     }
 
-    private static ArrayList<Integer> readFile(String path) throws IOException {
-        ArrayList<Integer> inputList = new ArrayList<>();
+    private static LinkedList<Page> readFile(String path) throws IOException {
         BufferedReader txt = new BufferedReader(new FileReader(path));
 
-        while(txt.ready()){
-            String linha = txt.readLine();
-            System.out.println(linha);
-        }
+        String str = "";
+        while(txt.ready()) str += txt.readLine();
         txt.close();
 
-        return inputList;
+        String[] l = str.split(";");
+        LinkedList<Page> lst = new LinkedList<>();
+
+        for (int i = 0; i < l.length; i++) {
+            String a[] = l[i].split(",");
+            lst.addLast(new Page(Integer.parseInt(a[0]), Integer.parseInt(a[1])));
+        }
+
+        return lst;
     }
 }

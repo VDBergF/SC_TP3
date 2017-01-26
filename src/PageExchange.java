@@ -1,26 +1,27 @@
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
  * Created by berg on 25/01/17.
  */
 public class PageExchange {
-    private int memory[];
-    private LinkedList<Integer> queue;
+    private LinkedList<Page> queue;
 
-    public PageExchange() {
-        this.memory = new int[8000];
+    public PageExchange(LinkedList<Page> queue) {
+        this.queue = queue;
     }
 
-    public void fifo() {
+    public int fifo() {
         
+        return 0;
     }
 
-    public void lru() {
-
+    public int lru() {
+        return 0;
     }
 
-    public void secondChance() {
-
+    public int secondChance() {
+        return 0;
     }
 
 }
