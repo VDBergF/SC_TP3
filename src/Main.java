@@ -8,11 +8,24 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         LinkedList<Page> input = readFile(args[1]);
+        int windowSize = 3;
 //        for (int i = 0; i < input.size(); i++)
 //            System.out.println(input.get(i).toString());
 
         PageExchange pageExchange = new PageExchange(input);
-        System.out.println(pageExchange.fifo(3));
+        switch (args[0]) {
+            case "0":
+                System.out.println(pageExchange.fifo(windowSize));
+                break;
+            case "1":
+                System.out.println(pageExchange.lru(windowSize));
+                break;
+            case "2":
+                System.out.println(pageExchange.secondChance(windowSize));
+                break;
+            default:
+                System.out.println("Opção inválida!");
+        }
     }
 
     private static LinkedList<Page> readFile(String path) throws IOException {

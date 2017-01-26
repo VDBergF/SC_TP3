@@ -37,21 +37,21 @@ public class PageExchange {
         return countFaults;
     }
 
+    public int lru(int windowSize) {
+        int countFaults = 0;
+        return countFaults;
+    }
+
+    public int secondChance(int windowSize) {
+        int countFaults = 0;
+        return countFaults;
+    }
+
     private boolean repetead(LinkedList<Page> windows, Page page) {
         for (int i = 0; i < windows.size(); i++)
             if (windows.get(i).getnPage() == page.getnPage()) return true;
 
         return false;
-    }
-
-    public int lru() {
-        int countFaults = 0;
-        return 0;
-    }
-
-    public int secondChance() {
-        int countFaults = 0;
-        return 0;
     }
 
 }
