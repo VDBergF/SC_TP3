@@ -69,7 +69,7 @@ public class PageExchange {
         Node node = null;
 
         Page page = queueCopy.pollFirst();
-        Node toExchange = null, previousToExchange = null;
+        Node clockHand = null, prevClockHand = null;
         while (page.getnProcess() != 0 || page.getnPage() != 0) {
 
             if (circularQueue.getSize() < windowSize) circularQueue.add(new Node(null, page, 0));
@@ -77,20 +77,20 @@ public class PageExchange {
                 node = circularQueue.search(page);
                 if (node != null) node.setBit(1);
                 else {
-                    Node newNode = new Node(toExchange.getNext(), page, 0);
-                    previousToExchange.setNext(newNode);
+                    Node newNode = new Node(clockHand.getNext(), page, 0);
+                    prevClockHand.setNext(newNode);
                 }
             }
 
             if (node == null) countFaults++;
             page = queueCopy.pollFirst();
 
-            if (toExchange == null) {
-                previousToExchange = toExchange;
-                toExchange = circularQueue.getHead();
+            if (clockHand == null) {
+                prevClockHand = clockHand;
+                clockHand = circularQueue.getHead();
             } else {
-                previousToExchange = toExchange;
-                toExchange = toExchange.getNext();
+                prevClockHand = clockHand;
+                clockHand = clockHand.getNext();
             }
             // Falta fazer a lógica para quando todos estiverem com o bit = 1;
         }

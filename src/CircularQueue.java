@@ -17,8 +17,8 @@ public class CircularQueue {
             this.head = node;
             this.tail = node;
         } else {
-            node.setNext(this.head);
-            this.head = node;
+            this.tail.setNext(node);
+            this.tail = node;
         }
         this.tail.setNext(this.head);
         this.size++;
