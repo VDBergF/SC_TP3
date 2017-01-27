@@ -80,6 +80,8 @@ public class PageExchange {
                             windows.removeFirst();
                             windows.addLast(page);
                             break;
+                        } else {
+                            windows.get(i).setBit(0);
                         }
                     }
                 }
