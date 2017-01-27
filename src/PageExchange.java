@@ -62,6 +62,37 @@ public class PageExchange {
     }
 
     public int secondChance(int windowSize) {
+        int countFaults = 0, equalPagePosition = -1;
+        LinkedList<Page> windows = new LinkedList<>(), queueCopy = (LinkedList<Page>) queue.clone();
+
+        Page page = queueCopy.pollFirst();
+        while (page.getnProcess() != 0 || page.getnPage() != 0) {
+
+            if (windows.size() < windowSize) windows.addLast(page);
+            else {
+
+                equalPagePosition = repetead(windows, page);
+                if (equalPagePosition != -1) windows.get(equalPagePosition).setBit(1);
+                else {
+
+                    for (int i = 0; i < windows.size(); i++) {
+                        if (windows.get(i).getBit() != 1) {
+                            windows.removeFirst();
+                            windows.addLast(page);
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if (equalPagePosition == -1) countFaults++;
+            page = queueCopy.pollFirst();
+        }
+
+        return countFaults;
+    }
+
+    public int secondChanceClock(int windowSize) {
         int countFaults = 0;
 
         LinkedList<Page> queueCopy = (LinkedList<Page>) queue.clone();
