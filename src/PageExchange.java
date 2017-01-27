@@ -119,16 +119,16 @@ public class PageExchange {
                 else if (clockHand.getBit() == 0) {
                     Node newNode = new Node(clockHand.getNext(), page, 0);
                     prevClockHand.setNext(newNode);
+
                     if (clockHand.getPage().getnProcess() == circularQueue.getHead().getPage().getnProcess())
                         circularQueue.setHead(newNode);
+
                     clockHand = newNode;
                     countFaults++;
                 } else clockHand.setBit(0);
 
-                if (node == null) {
-                    prevClockHand = clockHand;
-                    clockHand = clockHand.getNext();
-                }
+                prevClockHand = clockHand;
+                clockHand = clockHand.getNext();
             }
 
             page = queueCopy.pollFirst();
