@@ -21,7 +21,7 @@ public class Main {
                 System.out.println("LRU -> Count Faults: " + pageExchange.lru(windowSize));
                 break;
             case "2":
-                System.out.println("SECOND CHANCE -> Count Faults: " + pageExchange.secondChance(windowSize));
+                System.out.println("SECOND CHANCE -> Count Faults: " + pageExchange.secondChanceClock(windowSize));
                 break;
             default:
                 System.out.println("Opção inválida!");
