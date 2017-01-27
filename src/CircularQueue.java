@@ -50,6 +50,8 @@ public class CircularQueue {
                 return current;
 
             current = current.getNext();
+            if (current.getPage().getnPage() == this.head.getPage().getnPage())
+                return null;
         }
         return null;
     }

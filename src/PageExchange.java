@@ -72,28 +72,28 @@ public class PageExchange {
         Node clockHand = null, prevClockHand = null;
         while (page.getnProcess() != 0 || page.getnPage() != 0) {
 
-            if (circularQueue.getSize() < windowSize) circularQueue.add(new Node(null, page, 0));
+            if (circularQueue.getSize() < windowSize) {
+                circularQueue.add(new Node(null, page, 0));
+                prevClockHand = clockHand;
+                clockHand = circularQueue.getHead();
+            }
             else {
                 node = circularQueue.search(page);
                 if (node != null) node.setBit(1);
                 else if (clockHand.getBit() == 0) {
                     Node newNode = new Node(clockHand.getNext(), page, 0);
-                    prevClockHand.setNext(newNode);
+                    circularQueue.getTail().setNext(newNode);
+                    circularQueue.setHead(newNode);
                 } else {
                     clockHand.setBit(0);
                 }
+
+                prevClockHand = clockHand;
+                clockHand = clockHand.getNext();
             }
 
             if (node == null) countFaults++;
             page = queueCopy.pollFirst();
-
-            if (clockHand == null) {
-                prevClockHand = clockHand;
-                clockHand = circularQueue.getHead();
-            } else {
-                prevClockHand = clockHand;
-                clockHand = clockHand.getNext();
-            }
             // Falta fazer a lógica para quando todos estiverem com o bit = 1;
         }
         return countFaults;
