@@ -12,7 +12,7 @@ public class PageExchange {
     }
 
     public int fifo(int windowSize) {
-        int countFaults = 0, equalPosition = -1;
+        int countFaults = 0, equalPagePosition = -1;
         LinkedList<Page> windows = new LinkedList<>(), queueCopy = (LinkedList<Page>) queue.clone();
 
         Page page = queueCopy.pollFirst();
@@ -21,15 +21,15 @@ public class PageExchange {
             if (windows.size() < windowSize) windows.addLast(page);
             else {
 
-                equalPosition = repetead(windows, page);
+                equalPagePosition = repetead(windows, page);
 
-                if (equalPosition == -1) {
+                if (equalPagePosition == -1) {
                     windows.removeFirst();
                     windows.addLast(page);
                 }
             }
 
-            if (equalPosition == -1) countFaults++;
+            if (equalPagePosition == -1) countFaults++;
             page = queueCopy.pollFirst();
         }
 
@@ -37,7 +37,7 @@ public class PageExchange {
     }
 
     public int lru(int windowSize) {
-        int countFaults = 0, equalPosition = -1;
+        int countFaults = 0, equalPagePosition = -1;
         LinkedList<Page> windows = new LinkedList<>(), queueCopy = (LinkedList<Page>) queue.clone();
 
         Page page = queueCopy.pollFirst();
@@ -46,15 +46,15 @@ public class PageExchange {
             if (windows.size() < windowSize) windows.addLast(page);
             else {
 
-                equalPosition = repetead(windows, page);
+                equalPagePosition = repetead(windows, page);
 
-                if (equalPosition == -1) windows.removeFirst();
-                else windows.remove(equalPosition);
+                if (equalPagePosition == -1) windows.removeFirst();
+                else windows.remove(equalPagePosition);
 
                 windows.addLast(page);
             }
 
-            if (equalPosition == -1) countFaults++;
+            if (equalPagePosition == -1) countFaults++;
             page = queueCopy.pollFirst();
         }
 
@@ -63,6 +63,37 @@ public class PageExchange {
 
     public int secondChance(int windowSize) {
         int countFaults = 0;
+
+        LinkedList<Page> queueCopy = (LinkedList<Page>) queue.clone();
+        CircularQueue circularQueue = new CircularQueue();
+        Node node = null;
+
+        Page page = queueCopy.pollFirst();
+        Node toExchange = null, previousToExchange = null;
+        while (page.getnProcess() != 0 || page.getnPage() != 0) {
+
+            if (circularQueue.getSize() < windowSize) circularQueue.add(new Node(null, page, 0));
+            else {
+                node = circularQueue.search(page);
+                if (node != null) node.setBit(1);
+                else {
+                    Node newNode = new Node(toExchange.getNext(), page, 0);
+                    previousToExchange.setNext(newNode);
+                }
+            }
+
+            if (node == null) countFaults++;
+            page = queueCopy.pollFirst();
+
+            if (toExchange == null) {
+                previousToExchange = toExchange;
+                toExchange = circularQueue.getHead();
+            } else {
+                previousToExchange = toExchange;
+                toExchange = toExchange.getNext();
+            }
+            // Falta fazer a lógica para quando todos estiverem com o bit = 1;
+        }
         return countFaults;
     }
 
