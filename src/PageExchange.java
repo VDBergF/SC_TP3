@@ -76,9 +76,11 @@ public class PageExchange {
             else {
                 node = circularQueue.search(page);
                 if (node != null) node.setBit(1);
-                else {
+                else if (clockHand.getBit() == 0) {
                     Node newNode = new Node(clockHand.getNext(), page, 0);
                     prevClockHand.setNext(newNode);
+                } else {
+                    clockHand.setBit(0);
                 }
             }
 
