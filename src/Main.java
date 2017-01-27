@@ -15,13 +15,13 @@ public class Main {
         PageExchange pageExchange = new PageExchange(input);
         switch (args[0]) {
             case "0":
-                System.out.println(pageExchange.fifo(windowSize));
+                System.out.println("FIFO -> Count Faults: " + pageExchange.fifo(windowSize));
                 break;
             case "1":
-                System.out.println(pageExchange.lru(windowSize));
+                System.out.println("LRU -> Count Faults: " + pageExchange.lru(windowSize));
                 break;
             case "2":
-                System.out.println(pageExchange.secondChance(windowSize));
+                System.out.println("SECOND CHANCE -> Count Faults: " + pageExchange.secondChance(windowSize));
                 break;
             default:
                 System.out.println("Opção inválida!");
