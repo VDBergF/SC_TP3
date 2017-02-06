@@ -120,7 +120,8 @@ public class PageExchange {
                     Node newNode = new Node(clockHand.getNext(), page, 0);
                     prevClockHand.setNext(newNode);
 
-                    if (clockHand.getPage().getnProcess() == circularQueue.getHead().getPage().getnProcess())
+                    if (clockHand.getPage().getnProcess() == circularQueue.getHead().getPage().getnProcess()
+                            && clockHand.getPage().getnPage() == circularQueue.getHead().getPage().getnPage())
                         circularQueue.setHead(newNode);
 
                     clockHand = newNode;
@@ -138,7 +139,7 @@ public class PageExchange {
 
     private int repetead(LinkedList<Page> windows, Page page) {
         for (int i = 0; i < windows.size(); i++)
-            if (windows.get(i).getnPage() == page.getnPage()) return i;
+            if (windows.get(i).getnPage() == page.getnPage() && windows.get(i).getnProcess() == page.getnProcess()) return i;
 
         return -1;
     }

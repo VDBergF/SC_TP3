@@ -46,11 +46,12 @@ public class CircularQueue {
         Node current = this.head;
         while (current != null) {
 
-            if (current.getPage().getnPage() == page.getnPage())
+            if (current.getPage().getnPage() == page.getnPage() && current.getPage().getnProcess() == page.getnProcess())
                 return current;
 
             current = current.getNext();
-            if (current.getPage().getnPage() == this.head.getPage().getnPage())
+            if (current.getPage().getnPage() == this.head.getPage().getnPage() && current.getPage().getnProcess() ==
+                    this.head.getPage().getnProcess())
                 return null;
         }
         return null;

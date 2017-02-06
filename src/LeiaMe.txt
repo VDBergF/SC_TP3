@@ -1,0 +1,23 @@
+Passos para executar programa.
+
+
+1)
+javac Main.java
+
+2)
+java Main on on on pathFile
+
+ou
+
+java Main off off on pathFile
+
+Assim por diante.
+
+Obs: Os parâmetros são relativos à fifo, lru, segunda chance e caminho do arquivo de entrada, respectivamente.
+
+As entradas são esperado uma string com pares de dados, separados por ';', e a separação dentro do par espera-se
+o símbolo ','.
+
+A saída é apenas uma string contendo a quantidade de falta de cada algoritmo, quando escolhido.
+
+No meu pc dava um errinho na primeira compilação, e na segunda funcionava normalmente.
