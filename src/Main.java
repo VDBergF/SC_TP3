@@ -7,8 +7,8 @@ import java.util.LinkedList;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        LinkedList<Page> input = readFile(args[3]);
-        int windowSize = 3;
+        LinkedList<Page> input = readFile("");
+        int windowSize = 8000;
 //        for (int i = 0; i < input.size(); i++)
 //            System.out.println(input.get(i).toString());
 
